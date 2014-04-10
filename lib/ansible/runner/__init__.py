@@ -544,7 +544,7 @@ class Runner(object):
 
         host_variables = self.inventory.get_variables(host, vault_password=self.vault_pass)
         host_connection = host_variables.get('ansible_connection', self.transport)
-        if host_connection in [ 'paramiko', 'ssh', 'accelerate', 'lxc' ]:
+        if host_connection in [ 'paramiko', 'ssh', 'accelerate' ]:
             port = host_variables.get('ansible_ssh_port', self.remote_port)
             if port is None:
                 port = C.DEFAULT_REMOTE_PORT
@@ -751,7 +751,7 @@ class Runner(object):
             if not self.accelerate_port:
                 self.accelerate_port = C.ACCELERATE_PORT
 
-        if actual_transport in [ 'paramiko', 'ssh', 'accelerate' ]:
+        if actual_transport in [ 'paramiko', 'ssh', 'accelerate', 'lxc' ]:
             actual_port = inject.get('ansible_ssh_port', port)
 
         # the delegated host may have different SSH port configured, etc
